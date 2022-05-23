@@ -44,6 +44,7 @@ class Model:
         self.data=fileData
         self.model=LogisticRegression()
         self.model.fit(self.X,self.Y)
+        self.accurate=accuracy_score(self.model.predict(self.X), self.Y)
 
     @property
     def data(self):
@@ -65,6 +66,8 @@ class Model:
         else :
             print('the object is an Rock')
         
+    def __str__(self):
+        return f'le model a une precision de {self.accurate}'
         
 
         
