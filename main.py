@@ -53,6 +53,8 @@ class Model:
     @data.setter
     def data(self, fileData):
         self._data=pd.read_csv(fileData,header=None)
+        #self.X=self._data.drop(columns=60,axis=1)
+        #self.Y=self._data[60]
         self.X, Test_X, self.Y, Test_Y= train_test_split(self._data.drop(columns=60,axis=1),self._data[60],test_size=0.1,stratify=self._data[60], random_state=1)
     
     def changeInputData(self,data):
@@ -75,21 +77,5 @@ def test():
     Sonar.Predict(int_data)
     return
 test()
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+print(Sonar)
         
