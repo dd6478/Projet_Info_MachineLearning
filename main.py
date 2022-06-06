@@ -10,6 +10,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 
 ##### Projet Info #####
 
@@ -53,8 +54,8 @@ class Model:
     @data.setter
     def data(self, fileData):
         self._data=pd.read_csv(fileData,header=None)
-        #self.X=self._data.drop(columns=60,axis=1)
-        #self.Y=self._data[60]
+        self.Xnp=self._data.drop(columns=60,axis=1)
+        self.Ynp=self._data[60]
         self.X, Test_X, self.Y, Test_Y= train_test_split(self._data.drop(columns=60,axis=1),self._data[60],test_size=0.1,stratify=self._data[60], random_state=1)
     
     def changeInputData(self,data):
@@ -77,4 +78,52 @@ def test():
     Sonar.Predict(int_data)
     return
 test()
-print(Sonar)
+
+
+
+
+
+
+
+with open('data.csv', 'r') as f:
+    O=f.read().splitlines()
+    f.close()
+A=[]
+print()
+for f in range(len(O)):
+    D=[]
+    G=O[f].split(',')
+    for j in G:
+        try:
+            D.append(float(j))
+        except ValueError:
+            pass
+    A.append(D)
+    
+A=np.array(A)
+A_R=[]
+for i in range(len(A[0])):
+    moy=0
+    for j in range(97):
+        moy+=A[j][i]
+    moy=moy/97
+    A_R.append(moy)
+A_M=[]
+for i in range(len(A[0])):
+    moy=0
+    for j in range(97,len(A)):
+        moy+=A[j][i]
+    moy=moy/(len(A)-97)
+    A_M.append(moy)
+
+print(type(A[0]))
+
+
+#B=[x for x in range(len(A[0]))]
+plt.plot(1,A_R,"b")
+plt.plot(0,A_M,"r")
+plt.plot(B,[0.0307,0.0523,0.0653,0.0521,0.0611,0.0577,0.0665,0.0664,0.1460,0.2792,0.3877,0.4992,0.4981,0.4972,0.5607,0.7339,0.8230,0.9173,0.9975,0.9911,0.8240,0.6498,0.5980,0.4862,0.3150,0.1543,0.0989,0.0284,0.1008,0.2636,0.2694,0.2930,0.2925,0.3998,0.3660,0.3172,0.4609,0.4374,0.1820,0.3376,0.6202,0.4448,0.1863,0.1420,0.0589,0.0576,0.0672,0.0269,0.0245,0.0190,0.0063,0.0321,0.0189,0.0137,0.0277,0.0152,0.0052,0.0121,0.0124,0.0055],"c" )
+plt.plot(B,[0.0373,0.0281,0.0232,0.0225,0.0179,0.0733,0.0841,0.1031,0.0993,0.0802,0.1564,0.2565,0.2624,0.1179,0.0597,0.1563,0.2241,0.3586,0.1792,0.3256,0.6079,0.6988,0.8391,0.8553,0.7710,0.6215,0.5736,0.4402,0.4056,0.4411,0.5130,0.5965,0.7272,0.6539,0.5902,0.5393,0.4897,0.4081,0.4145,0.6003,0.7196,0.6633,0.6287,0.4087,0.3212,0.2518,0.1482,0.0988,0.0317,0.0269,0.0066,0.0008,0.0045,0.0024,0.0006,0.0073,0.0096,0.0054,0.0085,0.0060],"g" )
+plt.show()
+
+plt.show()
